@@ -81,7 +81,7 @@ def scrape_all_pages():
             if len(products) >= 500:
                 break
 
-
+#Ne runnuvaj ako nemash kofniguracija koja bi mozela da izdrzhu 10 threads (za start), 100 threads (najneoptimalno)
 scrape_all_pages()
 
 csv_file = "products.csv"
