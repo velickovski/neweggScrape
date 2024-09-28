@@ -8,7 +8,7 @@ base_url = "https://www.newegg.com/p/pl?N=100006676&page="
 products = []
 MAX_THREADS = 10
 
-#Nova funkcija poradi problemi so Captcha
+# New function for preventing Captcha 
 def get_description_and_seller(itemURL):
     driver = webdriver.Chrome()
     driver.get(itemURL)
@@ -19,7 +19,7 @@ def get_description_and_seller(itemURL):
 
     description = soup.find('div', class_='product-bullets').text.strip()
 
-    #Problemi so loadiranje na strana pa mora da se proveruva postepeno baranje na STRONG atribut "spor render na strana"
+    #Strong feature inside of a div may not be available (depending od time.sleep(x) period)
     seller_tag = soup.find('div', class_='product-seller-sold-by')
     if seller_tag:
         strong_tag = seller_tag.find('strong')
@@ -81,7 +81,7 @@ def scrape_all_pages():
             if len(products) >= 500:
                 break
 
-#Ne runnuvaj ako nemash kofniguracija koja bi mozela da izdrzhu 10 threads (za start), 100 threads (najneoptimalno)
+# Be careful that running 10 threads on slow PC may cause crashing or restarting
 scrape_all_pages()
 
 csv_file = "products.csv"

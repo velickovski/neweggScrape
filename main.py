@@ -79,4 +79,4 @@ print("Scraping successful")
 # Za testiranje na tocnost i preciznost na aplikacijata napravete gi slednite cekori:
 # 1. namalete go brojot za len(products) da se dvizi pomegju 5 - 20
 # 2. row 74 - products[:5-20?]
-# 3. driver = webdriver.Chrome() -> dokolku koristite Windows mozebi bi imale potreba od stavanje na pateka kade se naogja Chrome instalacija, na Linux nema problem
+# 3. driver = webdriver.Chrome() -> dokolku koristite Windows mozebi bi imale potreba od stavanje na pateka kade se naogja Chrome instalacija, na Linux nema problem 
