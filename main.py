@@ -39,7 +39,7 @@ def scrape_page(page_url):
     product_list = soup.find_all('div', class_='item-cell')
 
     for product in product_list:
-        if len(products) >= 500:
+        if len(products) >= 5:
             break
 
         product_data = {}
@@ -59,7 +59,7 @@ def scrape_page(page_url):
 
     driver.quit()
 
-while len(products) < 500:
+while len(products) < 5:
     scrape_page(base_url + str(page))
     page += 1
 
@@ -69,7 +69,7 @@ csv_columns = ['title', 'description', 'price', 'rating', 'seller', 'image_url']
 with open(csv_file, 'w', newline='', encoding='utf-8') as csvfile:
     writer = csv.DictWriter(csvfile, fieldnames=csv_columns)
     writer.writeheader()
-    for product in products[:500]:
+    for product in products[:5]:
         writer.writerow(product)
 
 print("Scraping successful")
