@@ -7,18 +7,17 @@ base_url = "https://www.newegg.com/p/pl?N=100006676&page="
 page = 1
 products = []
 
-#Nova funkcija poradi problemi so Captcha
+# Function to open second browser to prevent Captcha
 def get_description_and_seller(itemURL):
     driver = webdriver.Chrome()
     driver.get(itemURL)
-    time.sleep(10)
-
+    # time.sleep(5) If needed for smaller number of products
     product_page_source = driver.page_source
     soup = BeautifulSoup(product_page_source, 'html.parser')
 
     description = soup.find('div', class_='product-bullets').text.strip()
 
-    #Problemi so loadiranje na strana pa mora da se proveruva postepeno baranje na STRONG atribut "spor render na strana"
+    #Strong feature inside of a div may not be available (depending od time.sleep(x) period)
     seller_tag = soup.find('div', class_='product-seller-sold-by')
     if seller_tag:
         strong_tag = seller_tag.find('strong')
@@ -33,8 +32,7 @@ def get_description_and_seller(itemURL):
 def scrape_page(page_url):
     driver = webdriver.Chrome()
     driver.get(page_url)
-    time.sleep(5)
-
+    # time.sleep(5) If needed for smaller number of products
     page_source = driver.page_source
     soup = BeautifulSoup(page_source, 'html.parser')
 
@@ -76,7 +74,7 @@ with open(csv_file, 'w', newline='', encoding='utf-8') as csvfile:
 
 print("Scraping successful")
 
-# Za testiranje na tocnost i preciznost na aplikacijata napravete gi slednite cekori:
-# 1. namalete go brojot za len(products) da se dvizi pomegju 5 - 20
+#For testing features and precision on this application do these steps:
+# 1. Lower the number of len(products) to be around 5 to 20 products
 # 2. row 74 - products[:5-20?]
-# 3. driver = webdriver.Chrome() -> dokolku koristite Windows mozebi bi imale potreba od stavanje na pateka kade se naogja Chrome instalacija, na Linux nema problem 
+# 3. driver = webdriver.Chrome() -> for Windows users it may appears as an error because it requires path to the the Chrome bin start, on Linux it only requires Chrome installed
